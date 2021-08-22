@@ -112,6 +112,15 @@
         <link href="{{ SITEURL }}/{{ category_feed_atom }}" type="application/atom+xml" rel="alternate"
               title="{{ SITENAME }} {{ category }} ATOM Feed"/>
     {%- endif %}
+    {% if article %}
+        {% if article.js %}
+            {% for script in article.js %}
+                {% if 'top' in script[-7:] %}
+                    {{ script[:-5]|format(SITEURL) }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
 
 </head>
 <body>
@@ -240,5 +249,15 @@
 {% endif %}
 
 {% block scripts %}{% endblock %}
+
+{% if article %}
+    {% if article.js %}
+        {% for script in article.js %}
+            {% if 'bottom' in script[-7:] %}
+                {{ script[:-8]|format(SITEURL) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
 </body>
 </html>
